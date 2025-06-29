@@ -1,0 +1,220 @@
+.transaction-manager {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.transaction-manager h2 {
+  font-size: 1.8rem;
+  margin: 1.5rem;
+  color: #1a202c;
+  text-align: center;
+}
+
+.transaction-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.transaction-form input,
+.transaction-form select {
+  flex: 1 1 200px;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.transaction-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: auto;
+}
+
+.transaction-form button:hover {
+  background-color: #2563eb;
+}
+
+.transaction-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  background-color: #f1f5f9;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  color: #1a202c;
+  font-size: 0.95rem;
+}
+
+.transaction-header > div {
+  flex: 1 1 150px;
+}
+
+.transaction-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.transaction-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #f9fafb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transaction-item div {
+  flex: 1 1 150px;
+  font-size: 0.95rem;
+  color: #2d3748;
+}
+
+.transaction-item .actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.transaction-item .actions button {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.transaction-item .actions button:first-of-type {
+  background-color: #3b82f6;;
+  color: white;
+}
+
+.transaction-item .actions button:first-of-type:hover {
+  background-color: #2563eb;
+}
+
+.transaction-item .actions button:last-of-type {
+  background-color: #ef4444;
+  color: white;
+}
+
+.transaction-item .actions button:last-of-type:hover {
+  background-color: #dc2626;
+}
+
+.pagination-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  background-color: #e2e8f0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.form-message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.form-message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+}
+
+.exportCSV{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transaction-form {
+    flex-direction: row;
+  }
+
+  .transaction-form input,
+  .transaction-form select {
+    flex: 1 1 150px;
+  }
+
+  .transaction-header {
+    display: none;
+  }
+
+  .transaction-list {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+  }
+
+  .transaction-item {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    min-width: 600px;
+    padding: 0.75rem;
+  }
+
+  .transaction-item div {
+    flex: 1 1 150px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .transaction-item .actions {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .transaction-item .actions button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .transaction-form input {
+    width: 100%;
+  }
+}

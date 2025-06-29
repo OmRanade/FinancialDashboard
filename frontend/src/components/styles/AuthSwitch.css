@@ -1,0 +1,89 @@
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: 1s flex-direction 0.2s ease-in-out;
+}
+@media (min-width: 768px) {
+  .auth-wrapper {
+    flex-direction: row;
+  }
+  .auth-wrapper.signup-mode {
+    flex-direction: row-reverse;
+  }
+}
+.auth-form-side {
+  width: 100vw;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#ffffff,#f1f1f1, #dfdcdc);
+  transition: all 0.6s ease-in-out;
+  z-index: 2;
+  min-height: 100vh;
+}
+
+.auth-form-side.fade-in-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.auth-image-side.modern-image-style {
+  width: 100vw;
+  background-image: url('../images/background_Image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s ease-in-out;
+  min-height: 100vh;
+}
+.auth-image-side.modern-image-style::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(30, 58, 138, 0.4));
+  z-index: 1;
+}
+@keyframes imageZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (max-width: 768px) {
+  .auth-image-side.modern-image-style {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .auth-form-side {
+    position: relative;
+    background-image: none;
+    z-index: 1;
+  }
+  
+}

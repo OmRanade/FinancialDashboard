@@ -1,0 +1,63 @@
+/* src/components/styles/SummaryCards.css */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #2f80ed;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.3rem;
+}
+
+.value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Optional unique card coloring */
+.income .icon {
+  color: #27ae60;
+}
+.expense .icon {
+  color: #eb5757;
+}
+.savings .icon {
+  color: #f2994a;
+}
+.balance .icon {
+  color: #2d9cdb;
+}
+
+/* Mobile friendly layout */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}

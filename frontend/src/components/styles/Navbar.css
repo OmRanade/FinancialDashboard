@@ -1,0 +1,64 @@
+/* Show hamburger menu only on mobile */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.navbar {
+  background: white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar-title{
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.navbar input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.4rem;
+  align-items: center;
+  color: #333;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-left {
+    flex: unset;
+  }
+
+  .navbar input {
+    flex: 1;
+  }
+}

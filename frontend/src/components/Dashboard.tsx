@@ -1,4 +1,3 @@
-// src/components/Dashboard.tsx
 import { useState } from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -9,10 +8,12 @@ import SummaryCards from './SummaryCards';
 import RecentTransactions from './RecentTransactions';
 import GraphAnalytics from './GraphAnalytics';
 import TransactionManager from './TransactionManager';
-import Footer from './Footer'; // ✅ New import
+import Footer from './Footer';
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // 🔁 added
+  const triggerRefresh = () => setRefreshTrigger(prev => prev + 1); // 🔁 added
 
   return (
     <div className={`dashboard-container ${sidebarOpen ? 'sidebar-open' : ''}`}>
@@ -22,14 +23,14 @@ const Dashboard = () => {
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
         <div className="dashboard-content">
           <div id='summary'>
-            <SummaryCards />
+            <SummaryCards refresh={refreshTrigger} /> {/* 🔁 */}
           </div>
           <div className="contianer-gp-rt" id='analytics_and_transactions'>
-            <GraphAnalytics />
-            <RecentTransactions />
+            <GraphAnalytics refresh={refreshTrigger} /> {/* 🔁 */}
+            <RecentTransactions refresh={refreshTrigger} /> {/* 🔁 */}
           </div>
           <div id="table">
-            <TransactionManager /> 
+            <TransactionManager onTransactionChange={triggerRefresh} /> {/* 🔁 */}
           </div>
         </div>
         <Footer />

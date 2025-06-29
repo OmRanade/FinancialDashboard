@@ -13,7 +13,7 @@ interface Transaction {
   user_profile: string;
 }
 
-const TransactionManager = () => {
+const TransactionManager = ({ onTransactionChange }: { onTransactionChange: () => void }) => { // ✅ added prop
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [formData, setFormData] = useState<Transaction>({
     date: '',
@@ -27,13 +27,11 @@ const TransactionManager = () => {
   const [hasMore, setHasMore] = useState(true);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  // Filters and sort states
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [sortOption, setSortOption] = useState('');
 
-  // Local state to hold pending filter changes (for Apply Filters button)
   const [pendingSearch, setPendingSearch] = useState('');
   const [pendingCategory, setPendingCategory] = useState('');
   const [pendingStatus, setPendingStatus] = useState('');
@@ -41,7 +39,6 @@ const TransactionManager = () => {
 
   const token = localStorage.getItem('token');
 
-  // Compose query params for API call
   const buildQueryParams = () => {
     const params = new URLSearchParams();
     params.append('page', page.toString());
@@ -86,7 +83,6 @@ const TransactionManager = () => {
 
   useEffect(() => {
     if (token) fetchTransactions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, page, searchQuery, filterCategory, filterStatus, sortOption]);
 
   const resetForm = () => {
@@ -125,6 +121,7 @@ const TransactionManager = () => {
       }
 
       resetForm();
+      onTransactionChange(); // ✅ Refresh dashboard components
     } catch (err) {
       console.error('Error submitting transaction:', err);
       setMessage({ type: 'error', text: 'Something went wrong. Please try again.' });
@@ -154,6 +151,7 @@ const TransactionManager = () => {
       setTransactions((prev) => prev.filter((tx) => tx._id !== id));
       setMessage({ type: 'success', text: 'Transaction deleted.' });
       resetForm();
+      onTransactionChange(); // ✅ Refresh dashboard components
     } catch (err) {
       console.error('Error deleting transaction:', err);
       setMessage({ type: 'error', text: 'Failed to delete transaction.' });
@@ -162,7 +160,6 @@ const TransactionManager = () => {
     setTimeout(() => setMessage(null), 3000);
   };
 
-  // Clear filters handler - resets both pending and applied filters and page
   const handleClearFilters = () => {
     setPendingSearch('');
     setPendingCategory('');
@@ -176,7 +173,6 @@ const TransactionManager = () => {
     setPage(1);
   };
 
-  // Apply filters button handler
   const handleApplyFilters = () => {
     setSearchQuery(pendingSearch);
     setFilterCategory(pendingCategory);
@@ -251,49 +247,11 @@ const TransactionManager = () => {
               <div>{tx.status}</div>
               <div>{tx.user_profile}</div>
               <div className="actions">
-                <button
-                  type="button"
-                  onClick={() => handleEdit(tx)}
-                  aria-label="Edit Transaction"
-                  title="Edit"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
-                  </svg>
+                <button type="button" onClick={() => handleEdit(tx)} title="Edit">
+                  ✏️
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => tx._id && handleDelete(tx._id)}
-                  aria-label="Delete Transaction"
-                  title="Delete"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    aria-hidden="true"
-                  >
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6l-2 14H7L5 6" />
-                    <path d="M10 11v6" />
-                    <path d="M14 11v6" />
-                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
-                  </svg>
+                <button type="button" onClick={() => tx._id && handleDelete(tx._id)} title="Delete">
+                  🗑️
                 </button>
               </div>
             </div>
@@ -314,26 +272,19 @@ const TransactionManager = () => {
         onApplyFilters={handleApplyFilters}
       />
 
-      {/* Pagination Controls */}
       <div className="pagination-controls">
-        <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-          Previous
-        </button>
+        <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>Previous</button>
         <span>Page {page}</span>
-        <button disabled={!hasMore} onClick={() => setPage((p) => p + 1)}>
-          Next
-        </button>
+        <button disabled={!hasMore} onClick={() => setPage((p) => p + 1)}>Next</button>
       </div>
-      
+
       <div className="exportCSV">
-
         <ExportCsvButton
-        searchQuery={searchQuery}
-        filterCategory={filterCategory}
-        filterStatus={filterStatus}
-        sortOption={sortOption}
-      />
-
+          searchQuery={searchQuery}
+          filterCategory={filterCategory}
+          filterStatus={filterStatus}
+          sortOption={sortOption}
+        />
       </div>
     </div>
   );

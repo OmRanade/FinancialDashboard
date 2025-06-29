@@ -24,7 +24,7 @@ interface TransactionGrouped {
   expense: number;
 }
 
-const GraphAnalytics = () => {
+const GraphAnalytics = ({ refresh }: { refresh: number }) => {
   const [data, setData] = useState<TransactionGrouped[]>([]);
   const [filter, setFilter] = useState('monthly');
   const [statusFilter, setStatusFilter] = useState<'All' | 'Paid' | 'Pending'>('All');
@@ -89,7 +89,7 @@ const GraphAnalytics = () => {
     };
 
     fetchTransactions();
-  }, [filter, statusFilter]);
+  }, [filter, statusFilter, refresh]);
 
   return (
     <div className="graph-analytics">
@@ -112,8 +112,6 @@ const GraphAnalytics = () => {
           </select>
         </div>
       </div>
-
-      {/* 🆕 Scrollable container */}
       <div className="chart-scroll-wrapper">
         <ResponsiveContainer width={data.length * 80} height={400}>
           <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>

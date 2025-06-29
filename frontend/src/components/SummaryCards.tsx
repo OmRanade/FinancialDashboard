@@ -1,10 +1,9 @@
-// src/components/SummaryCards.tsx
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './styles/SummaryCards.css';
 import { FaArrowUp, FaArrowDown, FaPiggyBank, FaWallet } from 'react-icons/fa';
 
-const SummaryCards = () => {
+const SummaryCards = ({ refresh }: { refresh: number }) => {
   const [summary, setSummary] = useState({
     totalRevenue: 0,
     totalExpenses: 0,
@@ -41,7 +40,7 @@ const SummaryCards = () => {
     };
 
     if (token) fetchSummary();
-  }, [token]);
+  }, [token, refresh]);
 
   return (
     <div className="summary-cards">

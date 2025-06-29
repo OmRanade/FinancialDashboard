@@ -11,7 +11,7 @@ interface Transaction {
   user_profile: string;
 }
 
-const RecentTransactions = () => {
+const RecentTransactions = ({ refresh }: { refresh: number }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const token = localStorage.getItem('token');
 
@@ -34,7 +34,7 @@ const RecentTransactions = () => {
     };
 
     if (token) fetchTransactions();
-  }, [token]);
+  }, [token, refresh]);
 
   return (
     <div className="recent-transactions">
